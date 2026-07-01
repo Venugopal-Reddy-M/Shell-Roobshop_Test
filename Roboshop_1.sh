@@ -52,7 +52,6 @@ DOMAIN_NAME="solohunting.online"
           }
         ]
        }
-      }
    ]
 }
 echo "Record Updated for $instance"
