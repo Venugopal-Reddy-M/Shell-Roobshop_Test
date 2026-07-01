@@ -27,4 +27,6 @@ aws ec2 wait instance-running --instance-ids "$INSTANCE_ID"
             --output text
         )
     fi
+
+    echo "IP Addess: $IP"
 done 
