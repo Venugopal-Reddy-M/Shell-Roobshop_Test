@@ -5,8 +5,8 @@ AMI_ID="ami-0220d79f3f480ecf5"
 ZONE_ID="Z10463691NT0QWSQ7AW5B"
 DOMAIN_NAME="solohunting.online"
 
-    for instance in "$@"
-    do
+for instance in "$@"
+do
     INSTANCE_ID=$(aws ec2 run-instances \
     --image-id $AMI_ID \
     --instance-type "t3.micro" \
@@ -14,7 +14,7 @@ DOMAIN_NAME="solohunting.online"
     --tag-specifications "ResourceType=instance,Tags=[{Key=Name,Value=$instance}]" \
     --query 'Instances[0].InstanceId' \
     --output text )
-#aws ec2 wait instance-running --instance-ids "$INSTANCE_ID"
+ #aws ec2 wait instance-running --instance-ids "$INSTANCE_ID"
 
     if [ "$instance" == "frontend" ]; then
         IP=$(aws ec2 describe-instances \
@@ -33,27 +33,27 @@ DOMAIN_NAME="solohunting.online"
     fi
 
     echo "IP Addess: $IP"
-
-        aws route53 change-resource-record-sets \
+    aws route53 change-resource-record-sets \
         --hosted-zone-id $ZONE_ID \
-        --change-batch \
+        --change-batch '
         {
-         "Comment": "Update A record",
-         "Changes": [
-                    {
-                     "Action": "UPSERT",
-                     "ResourceRecordSet": {
-                     "Name": "'RECORD_NAME'",
-                     "Type": "A",
-                     "TTL": 1,
-                     "ResourceRecords": [
+          "Comment": "Update A record",
+        "Changes": [
+    {
+      "Action": "UPSERT",
+      "ResourceRecordSet": {
+        "Name": "'RECORD_NAME'",
+        "Type": "A",
+        "TTL": 1,
+        "ResourceRecords": [
           {
             "Value": "'$IP'"
           }
         ]
-       }
-   ]
+      }
+    }
+  ]
 }
-echo "Record Updated for $instance"
-    
+'
+  echo "record update for $instance"
 done 
