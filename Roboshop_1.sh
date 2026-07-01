@@ -11,7 +11,8 @@ AMI_ID="ami-0220d79f3f480ecf5"
     --security-group-ids sg-09e04001ff20131f1 \
     --tag-specifications "ResourceType=instance,Tags=[{Key=Name,Value=mongodb}]" \
     --query 'Instances[0].InstanceId' \
-    --output text )
+    --output text 
+    )
     if [ $instance == "frontend" ]; then
         IP=$(
         aws ec2 describe-instances \
@@ -25,6 +26,7 @@ AMI_ID="ami-0220d79f3f480ecf5"
             --instance-ids $InstanceId \
             --query 'Reservations[].Instances[].PrivateIpAddress' \
             --output text
-        )
+        
+    )
     fi
 done 
