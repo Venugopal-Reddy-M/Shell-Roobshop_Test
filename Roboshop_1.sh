@@ -2,6 +2,8 @@
 
 SG_ID="sg-09e04001ff20131f1"
 AMI_ID="ami-0220d79f3f480ecf5"
+ZONE_ID="Z10463691NT0QWSQ7AW5B"
+DOMAIN_NAME="solohunting.online"
 
     for instance in "$@"
     do
@@ -20,13 +22,39 @@ AMI_ID="ami-0220d79f3f480ecf5"
             --query 'Reservations[].Instances[].PublicIpAddress' \
             --output text 
         ) 
+        RECORD_NAME="$DOMAIN_NAME" #solohunting.online
     else
         IP=$(aws ec2 describe-instances \
             --instance-ids $INSTANCE_ID \
             --query 'Reservations[].Instances[].PrivateIpAddress' \
             --output text
         )
+        RECORD_NAME="$instance.$DOMAIN_NAME" #mongodb.solohunting.online
     fi
 
     echo "IP Addess: $IP"
+
+        aws route53 change-resource-record-sets \
+        --hosted-zone-id $ZONE_ID \
+        --change-batch \
+        {
+         "Comment": "Update A record",
+         "Changes": [
+                    {
+                     "Action": "UPSERT",
+                     "ResourceRecordSet": {
+                     "Name": "'RECORD_NAME'",
+                     "Type": "A",
+                     "TTL": 1,
+                     "ResourceRecords": [
+          {
+            "Value": "'$IP'"
+          }
+        ]
+       }
+      }
+   ]
+}
+echo "Record Updated for $instance"
+    
 done 
