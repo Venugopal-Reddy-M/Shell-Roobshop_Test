@@ -8,12 +8,12 @@ G="\e[32m"
 Y="\e[33m"
 N="\e[0m"
 
-if [ "$USERID" -ne 0 ]; then
+if [ $USERID -ne 0 ]; then
    echo -e "$R please run the script root level $N" |  tee -a $LOGS_FILE
    exit 1
 fi
 
-mkdir -p "$LOGS_FOLDER"
+mkdir -p $LOGS_FOLDER
 
 VALIDATE(){
     if [ $1 -ne 0 ]; then
