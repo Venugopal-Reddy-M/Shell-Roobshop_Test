@@ -8,19 +8,33 @@ G="\e[32m"
 Y="\e[33m"
 N="\e[0m"
 
-if [$USERID -ne 0]; then
+if [ "$USERID" -ne 0 ]; then
    echo -e "$R please run the script root level $N" |  tee -a $LOGS_FILE
    exit 1
 fi
 
-mkdir -p $LOGS_FOLDER
+mkdir -p "$LOGS_FOLDER"
+
 VALIDATE(){
-    if [$1 -ne 0]; then
+    if [ "$1" -ne 0 ]; then
         echo -e "$2....$R FAILUR $N" | tee -a $LOGS_FILE
         exit 1
     else 
         echo -e "$2...$R SUCCESS $N" | tee -a $LOGS_FILE
     fi
 }
-  dnf install nginx -y 
-  VALIDATE $? "installing nginx"
+
+cp mongo.repo /etc/yum.repos.d/mongo.repo
+VALIDATE $? "copying mongo repo"
+
+dnf install mongodb-org -y $>>$LOGS_FILE
+VALIDATE $? "installing mongoDB"
+
+systemctl enable mongod $>>$LOGS_FILE
+VALIDATE $? "enable mongoDB"
+
+sed -i 's/127.0.0.1/0.0.0.0/g' /etc/mongod.conf $>>$LOGS_FILE
+VALIDATE $? "Allowing remote"
+
+systemctl start mongod $>>$LOGS_FILE
+VALIDATE $? "restart"
