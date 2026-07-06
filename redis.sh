@@ -1,6 +1,8 @@
 #!/bin/bash/
 
 USERID=$(id -u)
+LOGS_FOLDER="/var/log/shell-roboshop"
+LOGS_FILE="$LOGS_FOLDER/$0.log"
 #CONFIC_REDIS=/etc/redis/redis.conf
 
 if [ $USERID -ne 0 ]; then
@@ -9,31 +11,35 @@ if [ $USERID -ne 0 ]; then
 fi
 VALIDATE(){
     if [ $1 -ne 0 ]; then
-        echo "$2....FAILED"
+        echo "$2....FAILED" |tee -a $LOGS_FILE
         exit 1
     else
-     echo "$2....Success"
+     echo "$2....Success" | tee -a $LOGS_FILE
     fi
     }
 
 if [ $? -ne 0 ]; then
-   dnf module disable redis -y
+   dnf module disable redis -y &>>LOGS_FILE
    VALIDATE $? "Disable redis..."
 else 
  echo "disable redis already"
 fi
 
 if [ $? -ne 0 ]; then
-  dnf module enable redis:7 -y
+  dnf module enable redis:7 -y &>>LOGS_FILE
   VALIDATE $? "Enable redis..."
 else
   echo "Enable redis...alredy"
 fi  
 
-dnf install redis -y 
+dnf install redis -y &>>LOGS_FILE
 VALIDATE $? "Installing redis..." 
 
 #mkdir -p $CONFIC_REDIS
 
-sed -i -e 's/127.0.0.1/0.0.0.0/g' -e '/protected-mode/ c protected-mode no' /etc/redis/redis.conf
+sed -i -e 's/127.0.0.1/0.0.0.0/g' -e '/protected-mode/ c protected-mode no' /etc/redis/redis.conf &>>LOGS_FILE
 VALIDATE $? "Allowing remote..."
+
+systemctl enable redis &>>LOGS_FILE
+systemctl start redis &>>LOGS_FILE
+VALIDATE $? "enable and start.... "
