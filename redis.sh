@@ -9,7 +9,7 @@ fi
 VALIDATE(){
     if [ $1 -ne 0 ]; then
         echo "$2....FAILED"
-        exix 1
+        exit 1
     else
      echo "$2....Success"
     fi
