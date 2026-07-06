@@ -15,8 +15,16 @@ VALIDATE(){
     fi
     }
 
-dnf module disable redis -y
-VALIDATE $? "Disable redis..."
+if [ $? -ne 0 ]; then
+   dnf module disable redis -y
+   VALIDATE $? "Disable redis..."
+else 
+ echo "disable redis already"
+fi
 
-dnf module enable redis:7 -y
-VALIDATE $? "Enable redis..."
+if [ $? -ne 0 ]; then
+  dnf module enable redis:7 -y
+  VALIDATE $? "Enable redis..."
+else
+  echo "Enable redis...alredy"
+fi  
