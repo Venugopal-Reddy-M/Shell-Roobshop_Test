@@ -71,3 +71,14 @@ dnf install mongodb-mongosh -y
 mongosh --host $MONGODB_HOST </app/db/master-data.js &>>LOGS_FILE
 VALIDATE $? "master data loaded..."
 
+INDEX=$(mongosh --host $MONGODB_HOST --quiet --eval 'db.getMongo().getDBNames().indexOf("catalogue")')
+
+if [ $INDEX -le 0 ]; then
+    mongosh --host $MONGODB_HOST </app/db/master-data.js
+    VALIDATE $? "LOADING PRODUCTS"
+else
+  echo "PRODUCTS ALREADY LOADED ..."
+fi
+
+systemctl restart catalouge
+VALIDATE $? "Restart catalouge"
