@@ -12,7 +12,7 @@ if [ $USERID -ne 0 ]; then
   echo "Run the root level"
   exit 1
 fi
-mkdir -p $LOGS_FOLDER
+mkdir -p $LOGS_FOLDER &>>LOGS_FILE
 VALIDATE(){
     if [ $1 -ne 0 ]; then 
        echo "$2....FAILURE" | tee -a $LOGS_FILE
