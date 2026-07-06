@@ -46,7 +46,7 @@ VALIDATE $? "Download catalouge code..."
 cd /app &>>LOGS_FILE
 VALIDATE $? "Moving to app Directory..." 
 
-rm -rt /app/*
+rm -rf /app/*
 VALIDATE $? "Removeing Existing code..."
 
 unzip /tmp/catalogue.zip &>>LOGS_FILE
