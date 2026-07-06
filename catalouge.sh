@@ -80,5 +80,5 @@ else
   echo "PRODUCTS ALREADY LOADED ..."
 fi
 
-systemctl restart catalouge
-VALIDATE $? "Restart catalouge"
+systemctl restart catalogue &>>LOGS_FILE
+VALIDATE $? "Restart catalogue"
