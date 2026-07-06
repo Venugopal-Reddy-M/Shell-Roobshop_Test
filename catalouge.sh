@@ -8,6 +8,7 @@ G="\e[32m"
 Y="\e[33m"
 N="\e[0m"
 SCRIPT_DIR=$PWD
+$MONGODB_HOST="mongodb.solohunting.online"
 
 if [ $USERID -ne 0 ]; then
   echo "Run the root level"
@@ -62,4 +63,11 @@ VALIDATE $? "Created systemctl service"
 systemctl daemon-reload
 systemctl enable catalogue 
 systemctl start catalogue
+VALIDATE $? "Start AND Enabling Catalouge.."
+
+cp $SCRIPT_DIR/mongo.repo /etc/yum.repos.d/mongo.repo &>>LOGS_FILE
+dnf install mongodb-mongosh -y
+
+mongosh --host $MONGODB_HOST </app/db/master-data.js &>>LOGS_FILE
+VALIDATE $? "master data loaded..."
 
