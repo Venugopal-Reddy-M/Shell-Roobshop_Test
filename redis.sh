@@ -20,7 +20,6 @@ mkdir -p $LOGS_FOLDER
     else
      echo "$2....Success" | tee -a $LOGS_FILE
     fi
-    }
 
 if [ $? -ne 0 ]; then
    dnf module disable redis -y &>>LOGS_FILE
