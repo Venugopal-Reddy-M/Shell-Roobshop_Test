@@ -31,7 +31,7 @@ else
 fi  
 
    dnf install redis -y 
-   VALIDATE $? "Installing redis..."
+   VALIDATE $? "Installing redis..." 
 
 mkdir -p $CONFIC_REDIS
 
