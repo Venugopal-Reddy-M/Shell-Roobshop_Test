@@ -1,7 +1,7 @@
 #!/bin/bash/
 
 USERID=$(id -u)
-CONFIC_REDIS=/etc/redis/redis.conf
+#CONFIC_REDIS=/etc/redis/redis.conf
 
 if [ $USERID -ne 0 ]; then
  echo "Run root level"
@@ -33,7 +33,7 @@ fi
 dnf install redis -y 
 VALIDATE $? "Installing redis..." 
 
-mkdir -p $CONFIC_REDIS
+#mkdir -p $CONFIC_REDIS
 
 sed -i -e 's/127.0.0.1/0.0.0.0/g' -e '/protected-mode/ c protected-mode no' /etc/redis/redis.conf
 VALIDATE $? "Allowing remote..."
