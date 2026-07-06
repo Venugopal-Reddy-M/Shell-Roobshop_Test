@@ -4,6 +4,10 @@ USERID=$(id -u)
 LOGS_FOLDER="/var/log/shell-roboshop"
 LOGS_FILE="$LOGS_FOLDER/$0.log"
 #CONFIC_REDIS=/etc/redis/redis.conf
+R="\e[31m"
+G="\e[32m"
+Y="\e[33m"
+N="\e[0m"
 
 if [ $USERID -ne 0 ]; then
  echo "Run root level"
@@ -22,14 +26,14 @@ if [ $? -ne 0 ]; then
    dnf module disable redis -y &>>LOGS_FILE
    VALIDATE $? "Disable redis..."
 else 
- echo "disable redis already"
+ echo -e "disable redis already....$Y Skiping $N"
 fi
 
 if [ $? -ne 0 ]; then
   dnf module enable redis:7 -y &>>LOGS_FILE
   VALIDATE $? "Enable redis..."
 else
-  echo "Enable redis...alredy"
+  echo -e "Enable redis alredy...$Y skiping $N"
 fi  
 
 dnf install redis -y &>>LOGS_FILE
