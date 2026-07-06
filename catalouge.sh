@@ -46,4 +46,9 @@ VALIDATE $? "Download catalouge code..."
 cd /app &>>LOGS_FILE
 VALIDATE $? "Moving to app Directory..." 
 
+unzip /tmp/catalogue.zip &>>LOGS_FILE
+VALIDATE $? "unzip catalouge the code..."
+
+npm install
+VALIDATE $? "Installing Dependencies.."
 
