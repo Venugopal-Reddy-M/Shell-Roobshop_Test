@@ -19,19 +19,17 @@ do
         IP=$(aws ec2 describe-instances \
             --instance-ids $INSTANCE_ID \
             --query 'Reservations[].Instances[].PublicIpAddress' \
-            --output text 
-        ) 
+            --output text ) 
         RECORD_NAME="$DOMAIN_NAME" #solohunting.online
     else
         IP=$(aws ec2 describe-instances \
             --instance-ids $INSTANCE_ID \
             --query 'Reservations[].Instances[].PrivateIpAddress' \
-            --output text
-        )
+            --output text ) 
         RECORD_NAME="$instance.$DOMAIN_NAME" #mongodb.solohunting.online
     fi
 
-    echo IP Addess: "$IP"
+    echo IP Addess:"$IP"
     aws route53 change-resource-record-sets \
         --hosted-zone-id $ZONE_ID \
         --change-batch '
@@ -54,5 +52,5 @@ do
   ]
 }
 '
-  echo "record update for $instance"
+echo "record update for $instance"
 done 
