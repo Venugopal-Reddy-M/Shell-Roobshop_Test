@@ -30,12 +30,13 @@ VALIDATE $? "enable nodejs-20 ....."
 dnf install nodejs -y &>>$LOGS_FILE
 VALIDATE $? "installing Nodejs ...." 
 
-id roboshop &LOGS_FILE
- if [ $? -ne 0 ]; then
-   useradd --system --home /app --shell /sbin/nologin --comment "roboshop system user" roboshop &>>$LOGS_FILE
-   VALIDATE $? "Add system user..."
-else
-   echo " Roboshop user already exit..."
+id roboshop &>>LOGS_FILE
+   if [ $? -ne 0 ]; then
+     useradd --system --home /app --shell /sbin/nologin --comment "roboshop system user" roboshop &>>$LOGS_FILE
+     VALIDATE $? "Add system user..."
+   else
+     echo " Roboshop user already exit..."
+   fi
 mkdir -p /app &>>$LOGS_FILE
 VALIDATE $? "create app directory"
 
