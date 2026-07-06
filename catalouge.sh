@@ -56,7 +56,7 @@ VALIDATE $? "unzip catalouge the code..."
 npm install &>>LOGS_FILE
 VALIDATE $? "Installing Dependencies.."
 
-cp $SCRIPT_DIR catalouge.service /etc/systemd/system/catalogue.service &>>LOGS_FILE
+cp $SCRIPT_DIR/catalouge.service /etc/systemd/system/catalogue.service &>>LOGS_FILE
 VALIDATE $? "Created systemctl service"
 
 systemctl daemon-reload
