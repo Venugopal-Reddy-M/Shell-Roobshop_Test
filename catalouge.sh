@@ -37,7 +37,7 @@ id roboshop &>>LOGS_FILE
      useradd --system --home /app --shell /sbin/nologin --comment "roboshop system user" roboshop &>>$LOGS_FILE
      VALIDATE $? "Add system user..."
    else
-     echo " Roboshop user already exit..."
+     echo -e" Roboshop user already exit...$Y SKIPPING $N"
    fi
 mkdir -p /app &>>$LOGS_FILE
 VALIDATE $? "create app directory"
