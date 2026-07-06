@@ -42,3 +42,8 @@ VALIDATE $? "create app directory"
 
 curl -o /tmp/catalogue.zip https://roboshop-artifacts.s3.amazonaws.com/catalogue-v3.zip &>>$LOGS_FILE
 VALIDATE $? "Download catalouge code..."
+
+cd /app &>>LOGS_FILE
+VALIDATE $? "Moving to app Directory..." 
+
+
