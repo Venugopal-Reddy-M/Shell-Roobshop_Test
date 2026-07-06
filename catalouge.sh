@@ -20,4 +20,4 @@ VALIDATE $? "diseable Nodejs ...."
 dnf module enable nodejs:20 -y
 VALIDATE $? "enable nodejs-20 ....."
 # dnf install nodejs -y
-# VALIDATE $? "installing Nodejs ...."
+# VALIDATE $? "installing Nodejs ...." 
