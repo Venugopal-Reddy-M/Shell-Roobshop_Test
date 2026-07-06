@@ -2,13 +2,13 @@
 
 USERID=$(id -u)
 
-if[ $USERID -ne 0 ]; then
+if [ $USERID -ne 0 ]; then
   echo "Run the root level"
   exit 1
 fi
 
 VALIDATE(){
-    if [ $1 -ne 0] then 
+    if [ $1 -ne 0 ] then 
        echo "$2....FILURE"
        exit 1
     else
