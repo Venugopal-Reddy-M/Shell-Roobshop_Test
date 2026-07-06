@@ -7,11 +7,11 @@ if [ $USERID -ne 0 ]; then
  exit 1
 fi
 VALIDATE(){
-    if [$1 -ne 0 ]; then
+    if [ $1 -ne 0 ]; then
         echo "$2....FAILED"
         exix 1
     else
-    echo "$2....Success"
+     echo "$2....Success"
     fi
     }
 
