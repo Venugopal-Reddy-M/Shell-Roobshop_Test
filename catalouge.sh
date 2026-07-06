@@ -8,7 +8,7 @@ G="\e[32m"
 Y="\e[33m"
 N="\e[0m"
 SCRIPT_DIR=$PWD
-$MONGODB_HOST="mongodb.solohunting.online"
+MONGODB_HOST="mongodb.solohunting.online"
 
 if [ $USERID -ne 0 ]; then
   echo "Run the root level"
