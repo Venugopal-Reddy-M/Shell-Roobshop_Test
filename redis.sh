@@ -28,3 +28,10 @@ if [ $? -ne 0 ]; then
 else
   echo "Enable redis...alredy"
 fi  
+
+If [ $? -ne 0 ]; then
+   dnf install redis -y 
+   VALIDATE $? "Installing redis..."
+else
+  echo "Installed redis alreddy...Skiping"
+fi
