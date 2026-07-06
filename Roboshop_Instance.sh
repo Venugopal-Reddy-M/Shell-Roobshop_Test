@@ -15,7 +15,6 @@ do
     --query 'Instances[0].InstanceId' \
     --output text )
 
-
     if [ "$instance" == "frontend" ]; then
         IP=$(aws ec2 describe-instances \
             --instance-ids $INSTANCE_ID \
@@ -32,7 +31,7 @@ do
         RECORD_NAME="$instance.$DOMAIN_NAME" #mongodb.solohunting.online
     fi
 
-    echo "IP Addess: $IP"
+    echo IP Addess: "$IP"
     aws route53 change-resource-record-sets \
         --hosted-zone-id $ZONE_ID \
         --change-batch '
