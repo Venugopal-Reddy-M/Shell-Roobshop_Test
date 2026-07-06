@@ -22,6 +22,7 @@ do
             --instance-ids $INSTANCE_ID \
             --query 'Reservations[].Instances[].PublicIpAddress' \
             --output text ) 
+            echo "public: $IP"
         RECORD_NAME="$DOMAIN_NAME" #solohunting.online
     else
         IP=$(aws ec2 describe-instances \
