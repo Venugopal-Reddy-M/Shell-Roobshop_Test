@@ -49,6 +49,13 @@ VALIDATE $? "Moving to app Directory..."
 unzip /tmp/catalogue.zip &>>LOGS_FILE
 VALIDATE $? "unzip catalouge the code..."
 
-npm install
+npm install &>>LOGS_FILE
 VALIDATE $? "Installing Dependencies.."
+
+cp catalouge.service /etc/systemd/system/catalogue.service &>>LOGS_FILE
+VALIDATE $? "Created systemctl service"
+
+systemctl daemon-reload
+systemctl enable catalogue 
+systemctl start catalogue
 
