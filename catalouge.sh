@@ -29,8 +29,12 @@ VALIDATE $? "diseable Nodejs ...."
 dnf module enable nodejs:20 -y &>>$LOGS_FILE
 VALIDATE $? "enable nodejs-20 ....."
 
-dnf install nodejs -y &>>$LOGS_FILE
-VALIDATE $? "installing Nodejs ...." 
+if [ $? -ne 0 ]; then
+ dnf install nodejs -y &>>$LOGS_FILE
+ VALIDATE $? "installing Nodejs ...." 
+else 
+  echo -e  "Already installin...$Y SKIPING $N"
+fi
 
 id roboshop &>>LOGS_FILE
    if [ $? -ne 0 ]; then
