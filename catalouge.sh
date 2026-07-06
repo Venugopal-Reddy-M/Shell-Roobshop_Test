@@ -7,6 +7,7 @@ R="\e[31m"
 G="\e[32m"
 Y="\e[33m"
 N="\e[0m"
+SCRIPT_DIR=$PWD
 
 if [ $USERID -ne 0 ]; then
   echo "Run the root level"
@@ -55,7 +56,7 @@ VALIDATE $? "unzip catalouge the code..."
 npm install &>>LOGS_FILE
 VALIDATE $? "Installing Dependencies.."
 
-cp catalouge.service /etc/systemd/system/catalogue.service &>>LOGS_FILE
+cp $SCRIPT_DIR catalouge.service /etc/systemd/system/catalogue.service &>>LOGS_FILE
 VALIDATE $? "Created systemctl service"
 
 systemctl daemon-reload
