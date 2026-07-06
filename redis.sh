@@ -30,10 +30,10 @@ else
   echo "Enable redis...alredy"
 fi  
 
-   dnf install redis -y 
-   VALIDATE $? "Installing redis..." 
+dnf install redis -y 
+VALIDATE $? "Installing redis..." 
 
 mkdir -p $CONFIC_REDIS
 
-sed -i 's/127.0.0.1/0.0.0.0/g' /etc/redis/redis.conf
-VALIDATE $? "Allowing remote"
+sed -i -e 's/127.0.0.1/0.0.0.0/g' -e '/protected-mode/ c protected-mode no' /etc/redis/redis.conf
+VALIDATE $? "Allowing remote..."
