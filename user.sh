@@ -45,15 +45,26 @@ VALIDATE $? "Create app directory"
 curl -L -o /tmp/user.zip https://roboshop-artifacts.s3.amazonaws.com/user-v3.zip &>>LOGS_FILE
 VALIDATE $? "Copy user code"
 
-cd /app &>>LOGS_FILE
+cd /app  &>>LOGS_FILE
 VALIDATE $? "Moving to app Directory..." 
 
 #this command remove exiting code in app dir
-rm -rf /app/*
+rm -rf /app/* &>>LOGS_FILE
 VALIDATE $? "Removeing Existing code..."
 
-unzip /tmp/user.zip
+unzip /tmp/user.zip &>>LOGS_FILE
 VALIDATE $? "unzip user code" 
+
+npm install &>>LOGS_FILE
+VALIDATE $? "Installing Dependencies..."
+
+cp $SCRIPT_DIR/etc/systemd/system/user.service &>>LOGS_FILE
+VALIDATE $? "Created systemctl service"
+
+systemctl enable user &>>LOGS_FILE
+systemctl start user &>>LOGS_FILE
+VALIDATE $? "enable and start user ...."
+
 
 
 
