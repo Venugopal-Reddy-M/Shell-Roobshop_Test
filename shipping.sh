@@ -28,7 +28,7 @@ VALIDATE(){
 dnf install maven -y &>>LOGS_FILE
 VALIDATE $? "installing maven"
 
-id roboshop &>>LOGS_FILE
+id roboshop
    if [ $? -ne 0 ]; then
      useradd --system --home /app --shell /sbin/nologin --comment "roboshop system user" roboshop &>>$LOGS_FILE
      VALIDATE $? "Add system user..."
@@ -45,7 +45,7 @@ VALIDATE $? "download the shipping code..."
 cd /app &>>LOGS_FILE
 VALIDATE $? "Change dir.."
 
-rm -rt /app/* &>>LOGS_FILE
+rm -rf /app/* &>>LOGS_FILE
 VALIDATE $? "remove exiting code.."
 
 unzip /tmp/shipping.zip  &>>LOGS_FILE
