@@ -30,9 +30,9 @@ dnf install rabbitmq-server -y &>>LOGS_FILE
 VALIDATE $? "installing rabbitmq..."
 
 systemctl enable rabbitmq-server &>>LOGS_FILE
-systemctl start rabbitmq-server &LOGS_FILE
+systemctl start rabbitmq-server &>>LOGS_FILE
 VALIDATE $? "Enable And Start rabbitMq"
 
-rabbitmqctl add_user roboshop roboshop123
-rabbitmqctl set_permissions -p / roboshop ".*" ".*" ".*"
+rabbitmqctl add_user roboshop roboshop123 &>>LOGS_FILE
+rabbitmqctl set_permissions -p / roboshop ".*" ".*" ".*" &>>LOGS_FILE
 VALIDATE $? "Created user and given permissions"
