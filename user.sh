@@ -7,7 +7,7 @@ R="\e[31m"
 G="\e[32m"
 Y="\e[33m"
 N="\e[0m"
-
+SCRIPT_DIR=$PWD
 if [ $USERID -ne 0 ]; then
   echo "Run the root level"
   exit 1
@@ -49,7 +49,6 @@ VALIDATE $? "Copy user code"
 rm -rf /app/*
 VALIDATE $? "Removeing Existing code..."
 
-rm -rf /temp/user.zip
 unzip /tmp/user.zip
 VALIDATE $? "unzip user code" 
 
