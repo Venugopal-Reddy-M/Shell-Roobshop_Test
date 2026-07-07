@@ -58,7 +58,7 @@ VALIDATE $? "unzip user code"
 npm install &>>LOGS_FILE
 VALIDATE $? "Installing Dependencies..."
 
-cp $SCRIPT_DIR/etc/systemd/system/user.service &>>LOGS_FILE
+cp $SCRIPT_DIR/user.service /etc/systemd/system/user.service &>>LOGS_FILE
 VALIDATE $? "Created systemctl service"
 
 systemctl enable user &>>LOGS_FILE
