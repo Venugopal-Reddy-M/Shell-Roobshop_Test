@@ -49,7 +49,7 @@ VALIDATE $? "Copy user code"
 rm -rf /app/*
 VALIDATE $? "Removeing Existing code..."
 
-rm -rf /temp/*
+rm -rf /temp/user.zip
 unzip /tmp/user.zip
 VALIDATE $? "unzip user code" 
 
