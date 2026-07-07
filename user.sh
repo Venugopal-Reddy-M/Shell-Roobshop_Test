@@ -37,7 +37,7 @@ if [ $? -ne 0 ]; then
    VALIDATE $? "ADD robo user"
 else
   echo -e "user already exit...$Y SKIPPING $N"
-fi
+fi 
 
 mkdir -p /app &>>LOGS_FILE
 VALIDATE $? "Create app directory"
@@ -49,8 +49,9 @@ VALIDATE $? "Copy user code"
 rm -rf /app/*
 VALIDATE $? "Removeing Existing code..."
 
+rm -rf /temp/*
 unzip /tmp/user.zip
-VALIDATE $? "unzip user code"
+VALIDATE $? "unzip user code" 
 
 
 
