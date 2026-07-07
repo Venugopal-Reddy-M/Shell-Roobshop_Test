@@ -45,6 +45,9 @@ VALIDATE $? "Create app directory"
 curl -L -o /tmp/user.zip https://roboshop-artifacts.s3.amazonaws.com/user-v3.zip &>>LOGS_FILE
 VALIDATE $? "Copy user code"
 
+cd /app &>>LOGS_FILE
+VALIDATE $? "Moving to app Directory..." 
+
 #this command remove exiting code in app dir
 rm -rf /app/*
 VALIDATE $? "Removeing Existing code..."
