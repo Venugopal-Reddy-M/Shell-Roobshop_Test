@@ -30,7 +30,7 @@ VALIDATE $? "installing maven"
 
 id roboshop
    if [ $? -ne 0 ]; then
-     useradd --system --home /app --shell /sbin/nologin --comment "roboshop system user" roboshop &>>$LOGS_FILE
+    useradd --system --home /app --shell /sbin/nologin --comment "roboshop system user" roboshop &>>LOGS_FILE
      VALIDATE $? "Add system user..."
    else
      echo -e "Roboshop user already exit...$Y SKIPPING $N"
