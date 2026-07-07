@@ -36,18 +36,18 @@ systemctl enable nginx &>>LOGS_FILE
 systemctl start nginx &>>LOGS_FILE
 VALIDATE $? "Enable And Start nginx.."
 
-rm -rf /usr/share/nginx/html/* 
+rm -rf /usr/share/nginx/html/* &>>LOGS_FILE
 VALIDATE $? "Remove default content"
 
-curl -o /tmp/frontend.zip https://roboshop-artifacts.s3.amazonaws.com/frontend-v3.zip
-cd /usr/share/nginx/html 
-unzip /tmp/frontend.zip
+curl -o /tmp/frontend.zip https://roboshop-artifacts.s3.amazonaws.com/frontend-v3.zip &>>LOGS_FILE
+cd /usr/share/nginx/html  
+unzip /tmp/frontend.zip &>>LOGS_FILE
 VALIDATE $? "download the forntend code..."
 
 rm -rf /etc/nginx/nginx.conf
 
-cp $SCRIPT_DIR/nginx.conf /etc/nginx/nginx.conf
+cp $SCRIPT_DIR/nginx.conf /etc/nginx/nginx.conf &>>LOGS_FILE
 VALIDATE $? "createing systemctl service..."
 
-systemctl restart nginx 
-VALIDATE $? "restart nginx..."
+systemctl restart nginx &>>LOGS_FILE
+VALIDATE $? "restart nginx"
