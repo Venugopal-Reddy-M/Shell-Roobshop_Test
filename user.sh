@@ -29,3 +29,22 @@ dnf module disable nodejs -y &>>LOGS_FILE
 dnf module enable nodejs:20 -y &>>LOGS_FILE
 VALIDATE $? "disable AND Enable nodejs...."
 
+dnf install nodejs -y &>>LOGS_FILE
+VALIDATE $? "install nodejs"
+
+useradd --system --home /app --shell /sbin/nologin --comment "roboshop system user" roboshop &>>LOGS_FILE
+VALIDATE $? "ADD robo user"
+
+mkdir /app &>>LOGS_FILE
+VALIDATE $? "Create app directory"
+
+curl -L -o /tmp/user.zip https://roboshop-artifacts.s3.amazonaws.com/user-v3.zip &>>LOGS_FILE
+VALIDATE $? "Copy user code"
+
+unzip /tmp/user.zip &>>LOGS_FILE
+VALIDATE $? "unzip user code"
+
+
+
+
+
