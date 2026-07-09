@@ -43,26 +43,24 @@ id roboshop &>>LOGS_FILE
    else
      echo -e "Roboshop user already exit...$Y SKIPPING $N"
   fi
-mkdir -p /app &>>$LOGS_FILE
-VALIDATE $? "create app directory"
+mkdir -p /app &>>LOGS_FILE
+VALIDATE $? "Create app directory"
 
-curl -o /tmp/catalogue.zip https://roboshop-artifacts.s3.amazonaws.com/catalogue-v3.zip &>>$LOGS_FILE
-VALIDATE $? "Download catalouge code..."
+curl -L -o /tmp/cart.zip https://roboshop-artifacts.s3.amazonaws.com/cart-v3.zip &>>LOGS_FILE
+VALIDATE $? "Copy cart code"
 
-cd /app &>>LOGS_FILE
+cd /app  &>>LOGS_FILE
 VALIDATE $? "Moving to app Directory..." 
 
-rm -rf /app/*
+#this command remove exiting code in app dir
+rm -rf /app/* &>>LOGS_FILE
 VALIDATE $? "Removeing Existing code..."
 
-unzip /tmp/catalogue.zip &>>$LOGS_FILE
-VALIDATE $? "unzip catalouge the code..."
+unzip /tmp/cart.zip &>>LOGS_FILE
+VALIDATE $? "unzip cart code" 
 
-cd /app &>>$LOGS_FILE
-VALIDATE $? "Moving to app Directory..."
-
-npm install &>>$LOGS_FILE 
-VALIDATE $? "Installing Dependencies.."
+npm install &>>LOGS_FILE
+VALIDATE $? "Installing Dependencies..."
 
 cp $SCRIPT_DIR/catalouge.service /etc/systemd/system/catalogue.service &>>$LOGS_FILE
 VALIDATE $? "Created systemctl service"
