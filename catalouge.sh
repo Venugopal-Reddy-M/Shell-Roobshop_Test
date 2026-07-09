@@ -37,12 +37,12 @@ else
 fi
 
 id roboshop &>>LOGS_FILE
-   if [ $? -ne 0 ]; then
+  if [ $? -ne 0 ]; then
      useradd --system --home /app --shell /sbin/nologin --comment "roboshop system user" roboshop &>>$LOGS_FILE
      VALIDATE $? "Add system user..."
    else
      echo -e "Roboshop user already exit...$Y SKIPPING $N"
-   fi
+  fi
 mkdir -p /app &>>$LOGS_FILE
 VALIDATE $? "create app directory"
 
@@ -57,6 +57,9 @@ VALIDATE $? "Removeing Existing code..."
 
 unzip /tmp/catalogue.zip &>>LOGS_FILE
 VALIDATE $? "unzip catalouge the code..."
+
+cd /app &>>LOGS_FILE
+VALIDATE $? "Moving to app Directory..."
 
 npm install &>>LOGS_FILE
 VALIDATE $? "Installing Dependencies.."
