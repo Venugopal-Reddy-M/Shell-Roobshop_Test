@@ -55,16 +55,16 @@ VALIDATE $? "Moving to app Directory..."
 rm -rf /app/*
 VALIDATE $? "Removeing Existing code..."
 
-unzip /tmp/catalogue.zip &>>LOGS_FILE
+unzip /tmp/catalogue.zip &>>$LOGS_FILE
 VALIDATE $? "unzip catalouge the code..."
 
-cd /app &>>LOGS_FILE
+cd /app &>>$LOGS_FILE
 VALIDATE $? "Moving to app Directory..."
 
-npm install &>>LOGS_FILE 
+npm install &>>$LOGS_FILE 
 VALIDATE $? "Installing Dependencies.."
 
-cp $SCRIPT_DIR/catalouge.service /etc/systemd/system/catalogue.service &>>LOGS_FILE
+cp $SCRIPT_DIR/catalouge.service /etc/systemd/system/catalogue.service &>>$LOGS_FILE
 VALIDATE $? "Created systemctl service"
 
 systemctl daemon-reload
@@ -72,10 +72,10 @@ systemctl enable catalogue
 systemctl start catalogue
 VALIDATE $? "Start AND Enabling Catalouge.."
 
-cp $SCRIPT_DIR/mongo.repo /etc/yum.repos.d/mongo.repo &>>LOGS_FILE
+cp $SCRIPT_DIR/mongo.repo /etc/yum.repos.d/mongo.repo &>>$LOGS_FILE
 dnf install mongodb-mongosh -y
 
-mongosh --host $MONGODB_HOST </app/db/master-data.js &>>LOGS_FILE
+mongosh --host $MONGODB_HOST </app/db/master-data.js &>>$LOGS_FILE
 VALIDATE $? "master data loaded..."
 
 INDEX=$(mongosh --host $MONGODB_HOST --quiet --eval 'db.getMongo().getDBNames().indexOf("catalogue")')
@@ -87,5 +87,5 @@ else
   echo "PRODUCTS ALREADY LOADED ..."
 fi
 
-systemctl restart catalogue &>>LOGS_FILE
+systemctl restart catalogue &>>$LOGS_FILE
 VALIDATE $? "Restart catalogue"
