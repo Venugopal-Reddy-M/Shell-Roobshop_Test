@@ -61,7 +61,7 @@ VALIDATE $? "unzip catalouge the code..."
 cd /app &>>LOGS_FILE
 VALIDATE $? "Moving to app Directory..."
 
-npm install &>>LOGS_FILE
+npm install &>>LOGS_FILE 
 VALIDATE $? "Installing Dependencies.."
 
 cp $SCRIPT_DIR/catalouge.service /etc/systemd/system/catalogue.service &>>LOGS_FILE
